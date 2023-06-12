@@ -1,0 +1,28 @@
+{
+    "name": "duggz0r/weather-package",
+    "description": "A simple weather forecasting package for laravel",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Duggz0r\\WeatherPackage\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Duggz0r\\WeatherPackage\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andy Duggan",
+            "email": "andyduggan@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.3|^8.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "illuminate/support": "^8.0"
+    }
+}
