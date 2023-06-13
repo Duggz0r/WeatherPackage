@@ -25,16 +25,20 @@ class WeatherBitDriver implements WeatherDriverInterface
             ],
         ]);
 
-        return $this->transformData(json_decode($response->getBody(), true));
+        $rawData = json_decode($response->getBody(), true);
+        $location = $rawData['city_name'] . ' - ' . $rawData['country_code'];
+
+        return $this->transformData($rawData, $location);
     }
 
-    public function transformData(array $rawData): array
+    public function transformData(array $rawData, string $location): array
     {
         $transformedData = [];
 
         foreach ($rawData['data'] as $item) {
             $transformedItem = [
                 'date' => $item['datetime'],
+                'location' => $location,
                 'temperature' => $item['temp'],
                 'description' => $item['weather']['description'],
                 'icon' => 'https://cdn.weatherbit.io/static/img/icons/' . $item['weather']['icon'] . '.png',

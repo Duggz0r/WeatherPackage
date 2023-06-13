@@ -2,6 +2,7 @@
 
 namespace Duggz0r\WeatherPackage;
 
+use Duggz0r\WeatherPackage\Console\Commands\GetWeatherForecast;
 use Duggz0r\WeatherPackage\Drivers\OpenWeatherMapDriver;
 use Duggz0r\WeatherPackage\Services\WeatherService;
 use Duggz0r\WeatherPackage\Services\WeatherServiceInterface;
@@ -17,6 +18,10 @@ class WeatherServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'weather-package');
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->commands([
+            GetWeatherForecast::class,
+        ]);
     }
 
     public function register(): void

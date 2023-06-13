@@ -92,6 +92,11 @@
             <input type="text" id="ipAddress" name="ipAddress" value="{{ $ipAddress }}" class="form-control">
             <button type="submit" class="btn btn-primary">Get Weather</button>
         </div>
+        @if(count($forecast) > 0)
+            <div class="location text-center">
+                Global Location: {{ $forecast[0]['location'] }}
+            </div>
+        @endif
     </form>
 
     <div class="days-container">

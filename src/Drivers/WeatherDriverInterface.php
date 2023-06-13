@@ -6,5 +6,5 @@ interface WeatherDriverInterface
 {
     public function getWeatherForecast(string $latitude, string $longitude): array;
 
-    public function transformData(array $rawData): array;
+    public function transformData(array $rawData, string $location): array;
 }

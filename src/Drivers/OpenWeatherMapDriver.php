@@ -24,17 +24,20 @@ class OpenWeatherMapDriver implements WeatherDriverInterface
             ],
         ]);
 
-        return $this->transformData(json_decode($response->getBody(), true));
+        $rawData = json_decode($response->getBody(), true);
+        $location = $rawData['city']['name'] . ' - ' . $rawData['city']['country'];
+
+        return $this->transformData($rawData, $location);
     }
 
-    public function transformData(array $rawData): array
+    public function transformData(array $rawData, string $location): array
     {
-        $groupedData = $this->groupDataByDate($rawData);
+        $groupedData = $this->groupDataByDate($rawData, $location);
         $averagedData = $this->calculateAverages($groupedData);
         return $this->limitData($averagedData, 5);
     }
 
-    private function groupDataByDate(array $rawData): array
+    private function groupDataByDate(array $rawData, string $location): array
     {
         $groupedData = [];
 
@@ -47,6 +50,7 @@ class OpenWeatherMapDriver implements WeatherDriverInterface
             if (!isset($groupedData[$date])) {
                 $groupedData[$date] = [
                     'date' => $date,
+                    'location' => $location,
                     'temperatures' => [],
                     'descriptions' => [],
                     'icons' => [],
