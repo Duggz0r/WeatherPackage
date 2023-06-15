@@ -17,22 +17,22 @@ class WeatherController
 
     public function showWeather(): View
     {
-//        $ip = $_SERVER['REMOTE_ADDR'];
-        $ip = '123.211.61.50';
-
         return view('weather-package::weather', [
             'forecast' => [],
-            'ipAddress' => $ip,
+            'ipAddress' => $this->getIPAddress(),
         ]);
     }
 
     public function updateWeather(Request $request): View
     {
-        $ip = $request->input('ipAddress');
-
         return view('weather-package::weather', [
             'forecast' => $this->weatherService->getWeatherForecastByIp($ip),
-            'ipAddress' => $ip,
+            'ipAddress' => $request->input('ipAddress'),
         ]);
+    }
+    
+    private function getIPAddress(): string
+    {
+        return $_SERVER['REMOTE_ADDR' === '127.0.0.1' ? '123.211.61.50' : $_SERVER['REMOTE_ADDR';
     }
 }
